@@ -3,11 +3,14 @@ package controllers
 import javax.inject._
 
 import play.api._
-import play.api.libs.json.JsValue
+import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import services.DribbbleService
 
 import scala.concurrent.Future
+import scala.util.{Failure, Success}
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -28,6 +31,6 @@ class ApplicationController @Inject()(dribbbleService: DribbbleService, cc: Cont
   }
 
   def top10(login: String): Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Status(501))
+    dribbbleService.getLikers(login) map { likers =>  Ok(Json.toJson(likers.take(10))) }
   }
 }
