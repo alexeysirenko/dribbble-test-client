@@ -2,13 +2,9 @@ package controllers
 
 import javax.inject._
 
-import play.api._
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.Json
 import play.api.mvc._
 import services.DribbbleService
-
-import scala.concurrent.Future
-import scala.util.{Failure, Success}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
